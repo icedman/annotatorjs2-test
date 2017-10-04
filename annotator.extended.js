@@ -108,7 +108,7 @@ window.setInterval(function() {
 | Highlighter
 |--------------------------------------------------------------------------
 */
-function saveAnnotationSequence() {
+var saveAnnotationSequence = function () {
     var seq = "0";
 
     document.querySelectorAll('span.annotator-hl').forEach(
@@ -126,15 +126,15 @@ function saveAnnotationSequence() {
     };
 
     _addAnnotation(annotation, []);
-}
+};
 
-function scheduleAnnotationSequence() {
+var scheduleAnnotationSequence = function() {
     if (window.saseq > 0) {
         clearTimeout(window.saseq);
         window.saseq = 0;
     }
     window.saseq = setTimeout(saveAnnotationSequence, 2000);
-}
+};
 
 annotator.ui.highlighter.Highlighter.prototype._draw = annotator.ui.highlighter.Highlighter.prototype.draw;
 annotator.ui.highlighter.Highlighter.prototype.draw = function(annotation) {
@@ -159,7 +159,7 @@ annotator.ui.highlighter.Highlighter.prototype.draw = function(annotation) {
 |--------------------------------------------------------------------------
 */
 
-function _clearHighlight() {
+var _clearHighlight = function() {
     if (window.getSelection) {
       if (window.getSelection().empty) {  // Chrome
         window.getSelection().empty();
@@ -171,7 +171,7 @@ function _clearHighlight() {
     }
 }
 
-function _addAnnotation(annotation, tags) {
+var _addAnnotation = function(annotation, tags) {
     if( typeof tags === 'string' ) {
         annotation['tags'] = [tags];
     } else {
@@ -226,18 +226,19 @@ app.include(annotator.ui.main,
 //     }
 // });
 
-function onAnnotatorTapDown(e) {
+var onAnnotatorTapDown = function (e) {
     window.lastAnnotation = null;
-}
-function onAnnotatorTapUp(e) {
+};
+
+var onAnnotatorTapUp = function (e) {
     if (window.lastAnnotation) {
         _addAnnotation(window.lastAnnotation);
     }
     window.lastAnnotation = null;
-}
+};
 
 app.start().
-then(function() {
+    then(function() {
 });
 
 window.addEventListener('load', function() {
@@ -251,5 +252,21 @@ window.addEventListener('load', function() {
     console.log('here!');
 })
 
+var getSelectedRange = function() {
+    try {
+        if (window.getSelection) {
+            selectedRange = window.getSelection().getRangeAt(0);
+        } else {
+            selectedRange = document.getSelection().getRangeAt(0);
+        }
+        if (selectedRange) {
+            $('#selectedText').val(selectedRange.toString());
+        }
+    } catch (err) {
+
+    }
+};
 
 window.disableAnnotateOnSelect = true;
+
+setInterval(getSelectedRange, 150);
