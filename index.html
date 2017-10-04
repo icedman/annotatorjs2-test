@@ -6,12 +6,18 @@
   <title>Selection</title>
   <link rel="stylesheet" href="./annotator.min.css" />
   <link rel="stylesheet" href="./annotator.extended.css" />
-  <style>body { font-size: 1.6em }</style>
+  <style>body { font-size: 1.6em }
+  .hideBar {
+    display:none;
+  }
+  .showBar {
+    display:block;
+  }
+  </style>
 </head>
 <body>
-  <div id="annotationBar" style="position:fixed; top: 10px; left: 10px; padding:10px; background: gainsboro">
-    <button>Annotate</button>
-    <input id="selectedText"/>
+  <div id="annotationBar" class="hideBar showBar" style="position:fixed; top: 10px; left: 10px; padding:10px; background: gainsboro">
+    <button onclick="_annot()">Annotate</button>
   </div>
   <p>Out of Bounds</p>
   <article>

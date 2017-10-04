@@ -227,30 +227,52 @@ app.include(annotator.ui.main,
 // });
 
 var onAnnotatorTapDown = function (e) {
-    window.lastAnnotation = null;
+    // $('#selectedText').val('down');
+    // window.lastAnnotation = null;
+    selectedRange = null;
+    _clearHighlight();
 };
 
 var onAnnotatorTapUp = function (e) {
-    if (window.lastAnnotation) {
+    // if (window.lastAnnotation) {
         // _addAnnotation(window.lastAnnotation);
-    }
-    window.lastAnnotation = null;
+    // }
+    // window.lastAnnotation = null;
+    // $('#selectedText').val('up');
 };
 
 app.start().
     then(function() {
 });
 
-window.addEventListener('load', function() {
-    $('article').bind('tap', {
-        preventDefault: false,
-        onTapDown: onAnnotatorTapDown,
-        onTapUp: onAnnotatorTapUp
-    }, function(e) {
-        console.log(e);
-    });
-    console.log('here!');
-})
+// window.addEventListener('load', function() {
+//     $('article').bind('tap', {
+//         preventDefault: false,
+//         onTapDown: onAnnotatorTapDown,
+//         onTapUp: onAnnotatorTapUp
+//     }, function(e) {
+//         console.log(e);
+//     });
+//     console.log('here!');
+// });
+
+var sel = 0;
+var selTime = 0;
+document.addEventListener("selectionchange", function() {
+    if (selTime) {
+        clearTimeout(selTime);
+    }
+    selTime = setTimeout( function() {
+        selTime = 0;
+    }, 1500);
+    
+}, false);
+
+function triggerMouseEvent (node, eventType) {
+    var clickEvent = document.createEvent ('MouseEvents');
+    clickEvent.initEvent (eventType, true, true);
+    node.dispatchEvent (clickEvent);
+}
 
 var getSelectedRange = function() {
     try {
@@ -259,13 +281,25 @@ var getSelectedRange = function() {
         } else {
             selectedRange = document.getSelection().getRangeAt(0);
         }
-        if (selectedRange) {
-            $('#selectedText').val(selectedRange.toString());
+
+        if (selectedRange.toString() != "") {
+            if (!$('#annotationBar').hasClass('showBar')) {
+                $('#annotationBar').addClass('showBar');
+            }
+            return;
         }
     } catch (err) {
 
     }
+
+    $('#annotationBar').removeClass('showBar');
 };
+
+window._annot = function() {
+    triggerMouseEvent(document.body, 'mouseup');
+    _addAnnotation(window.lastAnnotation);
+    window.lastAnnotation = null;
+}
 
 window.disableAnnotateOnSelect = true;
 
