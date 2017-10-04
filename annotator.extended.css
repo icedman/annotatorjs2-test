@@ -1,0 +1,13 @@
+.annotator-hl 				{ background-color: rgba(240,80,0,0.35); }
+.annotator-hl-facts			{ background-color: rgba(255,255,0,0.35); }
+.annotator-hl-issues		{ background-color: rgba(180,255,180,0.35); }
+.annotator-hl-ruling		{ background-color: rgba(120,180,255,0.35); }
+.annotator-hl-principles 	{ background-color: rgba(180,120,255,0.35); }
+.annotator-hl-important 	{ background-color: rgba(180,120,255,0.35); }
+
+.annotator-tag               { color: rgba(240,80,0,0.85); }
+.annotator-tag-facts         { color: rgba(255,255,0,0.85); }
+.annotator-tag-issues        { color: rgba(180,255,180,0.85); }
+.annotator-tag-ruling        { color: rgba(120,180,255,0.85); }
+.annotator-tag-principles    { color: rgba(180,120,255,0.85); }
+.annotator-tag-important     { color: rgba(180,120,255,0.85); }
