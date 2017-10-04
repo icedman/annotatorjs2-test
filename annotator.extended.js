@@ -232,7 +232,7 @@ var onAnnotatorTapDown = function (e) {
 
 var onAnnotatorTapUp = function (e) {
     if (window.lastAnnotation) {
-        _addAnnotation(window.lastAnnotation);
+        // _addAnnotation(window.lastAnnotation);
     }
     window.lastAnnotation = null;
 };
